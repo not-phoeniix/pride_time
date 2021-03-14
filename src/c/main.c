@@ -8,10 +8,11 @@ static Layer *flag;
 
 extern int *flag_colors[];
 extern int num_stripes[];
+extern int flag_num;
 
 ClaySettings settings;
 
-static void draw_flag(int segments, GColor colors[], GContext *ctx) {
+static void draw_flag(int segments, int colors[], GContext *ctx) {
     GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
     int h = bounds.size.h;
     int w = bounds.size.w;
@@ -19,7 +20,7 @@ static void draw_flag(int segments, GColor colors[], GContext *ctx) {
     for (int i = 0; i < segments; i++) {
         GRect flag_stripe = GRect(0, h / segments * i, w, h / segments);
 
-        graphics_context_set_fill_color(ctx, colors[i]);
+        graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
         graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
     }
 }
@@ -48,13 +49,13 @@ static void main_window_unload(Window *window) {
 static void init() {
     main_window = window_create();
 
-    load_settings();
-    init_msg();
-
     window_set_window_handlers(main_window, (WindowHandlers) {
         .load = main_window_load,
         .unload = main_window_unload
     });
+
+    load_settings();
+    init_msg();
 
     window_stack_push(main_window, true);
     update_flag();

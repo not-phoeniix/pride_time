@@ -4,8 +4,10 @@
 
 extern ClaySettings settings;
 
+int flag_num;
+
 static void set_defaults() {
-    flag_num = 0;
+    flag_num = 3;
 }
 
 void load_settings() {
@@ -15,6 +17,6 @@ void load_settings() {
 }
 
 void save_settings() {
-    persist_write_int(MESSAGE_KEY_FlagKey, flag_num);
     //persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
+    persist_write_int(MESSAGE_KEY_FlagKey, flag_num);
 }

@@ -1,11 +1,11 @@
 #include <pebble.h>
 
-GColor pride[] = {GColorRed, GColorOrange, GColorYellow, GColorGreen, GColorBlue, GColorPurple};
-GColor trans[] = {GColorVividCerulean, GColorShockingPink, GColorWhite, GColorShockingPink, GColorVividCerulean};
-GColor demigirl[] = {GColorDarkGray, GColorLightGray, GColorShockingPink, GColorWhite, GColorShockingPink, GColorLightGray, GColorDarkGray};
-GColor lesbian[] = {GColorOrange, GColorChromeYellow, GColorWhite, GColorPurpureus, GColorJazzberryJam};
-GColor asexual[] = {GColorBlack, GColorLightGray, GColorWhite, GColorPurple};
-GColor blank[] = {GColorClear};
+int pride[] = {0xFF0000, 0xFF5500, 0xFFFF00, 0x00FF00, 0x0000FF, 0xAA00AA};
+int trans[] = {0x00AAFF, 0xFF55FF, 0xFFFFFF, 0xFF55FF, 0x00AAFF};
+int demigirl[] = {0x555555, 0xAAAAAA, 0xFF55FF, 0xFFFFFF, 0xFF55FF, 0xAAAAAA, 0x555555};
+int lesbian[] = {0xFF5500, 0xFFAA00, 0xFFFFFF, 0xAA55AA, 0xAA0055};
+int asexual[] = {0x000000, 0xAAAAAA, 0xFFFFFF, 0xAA00AA};
+int blank[] = {0x000000};
 
-GColor *flag_colors[] = {pride, trans, demigirl, lesbian, asexual, blank};
+int *flag_colors[] = {pride, trans, demigirl, lesbian, asexual, blank};
 int num_stripes[] = {6, 5, 7, 5, 4, 1};

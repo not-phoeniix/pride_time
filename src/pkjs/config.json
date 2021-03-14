@@ -18,7 +18,7 @@
             {
                 "type": "select",
                 "messageKey": "FlagKey",
-                "DefaultValue": "0",
+                "DefaultValue": "3",
                 "label": "Pride Flag",
                 "options": [
                     {
