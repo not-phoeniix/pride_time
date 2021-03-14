@@ -4,17 +4,43 @@
 #include "../config/cfg.h"
 
 extern ClaySettings settings;
-extern int flag_num;
 
 static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
     //flag
     Tuple *flag_t = dict_find(iter, MESSAGE_KEY_FlagKey);
-
     if (flag_t) {
-        flag_num = flag_t->value->int32;
+        settings.flag_number = atoi(flag_t->value->cstring);
     }
+
+    Tuple *bottomShadow_t = dict_find(iter, MESSAGE_KEY_BottomShadowKey);
+    if(bottomShadow_t) {
+        settings.BottomShadow = bottomShadow_t->value->int32 == 1;
+    }
+
+    Tuple *spacing_t = dict_find(iter, MESSAGE_KEY_SpacingKey);
+    if(spacing_t) {
+        settings.spacing = spacing_t->value->int32;
+    }
+  
+    Tuple *bgColor_t = dict_find(iter, MESSAGE_KEY_BGColorKey);
+    if(bgColor_t) {
+        settings.bgColor = GColorFromHEX(bgColor_t->value->int32);
+    }
+  
+
+    Tuple *mainColor_t = dict_find(iter, MESSAGE_KEY_MainColorKey);
+    if(mainColor_t) {
+        settings.mainColor = GColorFromHEX(mainColor_t->value->int32);
+    }
+
+    Tuple *accColor_t = dict_find(iter, MESSAGE_KEY_AccentColorKey);
+    if(accColor_t) {
+        settings.accColor = GColorFromHEX(accColor_t->value->int32);
+    }
+
     save_settings();
-    update_flag();
+    
+    update_stuff();
 }
 
 void init_msg() {

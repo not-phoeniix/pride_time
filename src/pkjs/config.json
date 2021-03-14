@@ -16,6 +16,38 @@
         "type": "section",
         "items": [
             {
+                "type": "heading",
+                "defaultValue": "Colors",
+                "size": "7"
+            },
+            {
+                "type": "color",
+                "messageKey": "BGColorKey",
+                "label": "Background Color"
+            },
+            {
+                "type": "color",
+                "messageKey": "MainColorKey",
+                "defaultValue": "0xFFFFFF",
+                "label": "Main Text Color"
+            },
+            {
+                "type": "color",
+                "messageKey": "AccentColorKey",
+                "defaultValue": "0xAAAAAA",
+                "label": "Drop Shadow Text Color"
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "items": [
+            {
+                "type": "heading",
+                "defaultValue": "Other Settings",
+                "size": "7"
+            },
+            {
                 "type": "select",
                 "messageKey": "FlagKey",
                 "DefaultValue": "3",
@@ -23,29 +55,85 @@
                 "options": [
                     {
                         "label": "None (Use Background Color)",
-                        "value": "5"
-                    },
-                    {
-                        "label": "Pride",
                         "value": "0"
                     },
                     {
-                        "label": "Transgender",
+                        "label": "Pride",
                         "value": "1"
                     },
                     {
-                        "label": "Demigirl",
+                        "label": "Philadelphia Pride",
+                        "value": "5"
+                    },
+                    {
+                        "label": "Transgender",
                         "value": "2"
                     },
                     {
+                        "label": "Bisexual",
+                        "value": "6"
+                    },
+                    {
                         "label": "Lesbian",
-                        "value": "3"
+                        "value": "7"
+                    },
+                    {
+                        "label": "Pansexual",
+                        "value": "8"
                     },
                     {
                         "label": "Asexual",
+                        "value": "9"
+                    },
+                    {
+                        "label": "Aromantic",
+                        "value": "10"
+                    },
+                    {
+                        "label": "Polyamory",
+                        "value": "11"
+                    },
+                    {
+                        "label": "Nonbinary",
+                        "value": "12"
+                    },
+                    {
+                        "label": "Demigirl",
+                        "value": "3"
+                    },
+                    {
+                        "label": "Demiboy",
                         "value": "4"
+                    },
+                    {
+                        "label": "Agender",
+                        "value": "13"
+                    },
+                    {
+                        "label": "Genderfluid",
+                        "value": "14"
+                    },
+                    {
+                        "label": "Genderqueer",
+                        "value": "15"
                     }
                 ]
+            },
+            {
+                "type": "toggle",
+                "messageKey": "BottomShadowKey",
+                "label": "Drop Shadow is Below Text",
+                "defaultValue": "true"
+            },
+            {
+                "type": "slider",
+                "messageKey": "SpacingKey",
+                "defaultValue": "1",
+                "label": "Spacing Between Main Text and Drop Shadow",
+                "description": "(Set to 0 for No Drop Shadow)",
+                "min": "0",
+                "max": "4",
+                "step": "1"
             }
         ]
     },

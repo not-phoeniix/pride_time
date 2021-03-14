@@ -22,7 +22,12 @@
       "watchface": true
     },
     "messageKeys": [
-      "FlagKey"
+      "FlagKey",
+      "BottomShadowKey",
+      "SpacingKey",
+      "BGColorKey",
+      "MainColorKey",
+      "AccentColorKey"
     ],
     "resources": {
       "media": []
