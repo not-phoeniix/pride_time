@@ -1,0 +1,52 @@
+[
+    {
+        "type": "section",
+        "items": [
+            {
+                "type": "heading",
+                "defaultValue": "Pride Time"
+            },
+            {
+                "type": "text",
+                "defaultValue": "By Nicki"
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "items": [
+            {
+                "type": "select",
+                "messageKey": "FlagKey",
+                "DefaultValue": "1",
+                "label": "Pride Flag",
+                "options": [
+                    {
+                        "label": "None (Use Background Color)",
+                        "value": "4"
+                    },
+                    {
+                        "label": "Transgender",
+                        "value": "0"
+                    },
+                    {
+                        "label": "Demigirl",
+                        "value": "1"
+                    },
+                    {
+                        "label": "Lesbian",
+                        "value": "2"
+                    },
+                    {
+                        "label": "Asexual",
+                        "value": "3"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "submit",
+        "defaultValue": "Save"
+    }
+]
