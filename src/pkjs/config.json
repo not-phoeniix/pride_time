@@ -50,7 +50,7 @@
             {
                 "type": "select",
                 "messageKey": "FlagKey",
-                "DefaultValue": "3",
+                "DefaultValue": "1",
                 "label": "Pride Flag",
                 "options": [
                     {
@@ -132,7 +132,7 @@
                 "label": "Spacing Between Main Text and Drop Shadow",
                 "description": "(Set to 0 for No Drop Shadow)",
                 "min": "0",
-                "max": "4",
+                "max": "3",
                 "step": "1"
             }
         ]

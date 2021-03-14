@@ -5,12 +5,12 @@
 extern ClaySettings settings;
 
 static void set_defaults() {
-    settings.accColor = GColorLightGray;
-    settings.bgColor = GColorDarkGray;
+    settings.accColor = GColorBlack;
+    settings.bgColor = GColorBlack;
     settings.mainColor = GColorWhite;
     settings.BottomShadow = true;
-    settings.flag_number = 0;
-    settings.spacing = 1;
+    settings.flag_number = 1;
+    settings.spacing = 2;
 }
 
 void load_settings() {

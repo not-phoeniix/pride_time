@@ -69,6 +69,8 @@ static void main_window_load(Window *window) {
 
     fant = fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS);
 
+    window_set_background_color(main_window, settings.bgColor);
+
     flag = layer_create(bounds);
     layer_set_update_proc(flag, flag_update_proc);
     layer_add_child(window_layer, flag);
@@ -100,23 +102,24 @@ static void main_window_load(Window *window) {
 }
 
 static void main_window_unload(Window *window) {
-    layer_destroy(flag);
+    //layer_destroy(flag);
     text_layer_destroy(main_time);
     text_layer_destroy(time_bg);
+    
 }
 
 static void init() {
     main_window = window_create();
 
-    tick_timer_service_subscribe(SECOND_UNIT, tick_handler);
+    tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+
+    init_msg();
+    load_settings();
 
     window_set_window_handlers(main_window, (WindowHandlers) {
         .load = main_window_load,
         .unload = main_window_unload
     });
-
-    init_msg();
-    load_settings();
 
     window_stack_push(main_window, true);
 }
