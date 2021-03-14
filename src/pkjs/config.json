@@ -18,28 +18,32 @@
             {
                 "type": "select",
                 "messageKey": "FlagKey",
-                "DefaultValue": "1",
+                "DefaultValue": "0",
                 "label": "Pride Flag",
                 "options": [
                     {
                         "label": "None (Use Background Color)",
-                        "value": "4"
+                        "value": "5"
                     },
                     {
-                        "label": "Transgender",
+                        "label": "Pride",
                         "value": "0"
                     },
                     {
-                        "label": "Demigirl",
+                        "label": "Transgender",
                         "value": "1"
                     },
                     {
-                        "label": "Lesbian",
+                        "label": "Demigirl",
                         "value": "2"
                     },
                     {
-                        "label": "Asexual",
+                        "label": "Lesbian",
                         "value": "3"
+                    },
+                    {
+                        "label": "Asexual",
+                        "value": "4"
                     }
                 ]
             }

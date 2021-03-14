@@ -2,7 +2,9 @@
 #include <pebble.h>
 
 typedef struct ClaySettings {
-    int flag_num;
+
 } ClaySettings;
+
+int flag_num;
 
 void update_flag();

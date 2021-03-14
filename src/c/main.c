@@ -11,22 +11,21 @@ extern int num_stripes[];
 
 ClaySettings settings;
 
-static void draw_flag(int segments, int colors[], GContext *ctx) {
+static void draw_flag(int segments, GColor colors[], GContext *ctx) {
     GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
-    int segment_height = bounds.size.h / segments + (bounds.size.h % segments != 0);
-    int segment_width = bounds.size.w;
+    int h = bounds.size.h;
+    int w = bounds.size.w;
 
     for (int i = 0; i < segments; i++) {
-        int y = segment_height * i;
-        GRect stripe = GRect(0, y, segment_width, segment_height);
+        GRect flag_stripe = GRect(0, h / segments * i, w, h / segments);
 
-        graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
-        graphics_fill_rect(ctx, stripe, 0, GCornerNone);
+        graphics_context_set_fill_color(ctx, colors[i]);
+        graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
     }
 }
 
 static void flag_update_proc(Layer *layer, GContext *ctx) {
-    draw_flag(num_stripes[settings.flag_num], flag_colors[settings.flag_num], ctx);
+    draw_flag(num_stripes[flag_num], flag_colors[flag_num], ctx);
 }
 
 void update_flag() {
