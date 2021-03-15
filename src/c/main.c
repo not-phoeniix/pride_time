@@ -26,22 +26,20 @@ static void battery_update_proc(Layer *layer, GContext *ctx) {
 
     int bar_w = (battery_level * 90) / 100;
     int bar_h = 5;
-    if (settings.doBatBar == true) {
-        graphics_context_set_fill_color(ctx, settings.accColor);
+    graphics_context_set_fill_color(ctx, settings.accColor);
 
-        if(settings.BottomShadow == true) {
-            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) + settings.spacing, h / 2 + 25 + settings.spacing, bar_w, bar_h), 0, GCornerNone);
-        } else {
-            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) + settings.spacing, h / 2 + 25 - settings.spacing, bar_w, bar_h), 0, GCornerNone);
-        }
+    if(settings.BottomShadow == true) {
+        graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) + settings.spacing, h / 2 + 25 + settings.spacing, bar_w, bar_h), 0, GCornerNone);
+    } else {
+        graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) + settings.spacing, h / 2 + 25 - settings.spacing, bar_w, bar_h), 0, GCornerNone);
+    }
 
-        graphics_context_set_fill_color(ctx, settings.mainColor);
+    graphics_context_set_fill_color(ctx, settings.mainColor);
 
-        if(settings.BottomShadow == true) {
-            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) - settings.spacing, h / 2 + 25 - settings.spacing, bar_w, bar_h), 0, GCornerNone);
-        } else {
-            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) - settings.spacing, h / 2 + 25 + settings.spacing, bar_w, bar_h), 0, GCornerNone);
-        }
+    if(settings.BottomShadow == true) {
+        graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) - settings.spacing, h / 2 + 25 - settings.spacing, bar_w, bar_h), 0, GCornerNone);
+    } else {
+        graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) - settings.spacing, h / 2 + 25 + settings.spacing, bar_w, bar_h), 0, GCornerNone);
     }
 }
 
@@ -170,6 +168,7 @@ static void init() {
     });
 
     window_stack_push(main_window, true);
+    battery_callback(battery_state_service_peek());
     update_stuff();
 }
 
