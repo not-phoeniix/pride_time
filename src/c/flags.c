@@ -18,4 +18,4 @@ int genderfluid[] = {0xFF55FF, 0xFFFFFF, 0xFF00AA, 0x000000, 0x5500FF};
 int genderqueer[] = {0xAA55AA, 0xFFFFFF, 0x00AA00};
 
 int *flag_colors[] = {clear, pride, trans, demigirl, demiboy, phillypride, bisexual, lesbian, pansexual, asexual, aromantic, polyamory, nonbinary, agender, genderfluid, genderqueer};
-int num_stripes[] = {0, 6, 5, 7, 7, 8, 7, 7, 3, 4, 5, 3, 4, 7, 5, 3};
+int num_stripes[] = {0, 6, 5, 7, 7, 8, 5, 5, 3, 4, 5, 3, 4, 7, 5, 3};

@@ -41,6 +41,11 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
         settings.timeFant = fonts_get_system_font(timeFont_t->value->cstring);
     }
 
+    Tuple *bat_t = dict_find(iter, MESSAGE_KEY_EnableBatteryKey);
+    if(bat_t) {
+        settings.doBatBar = bat_t->value->int32 == 1;
+    }
+
     save_settings();
     update_stuff();
 }

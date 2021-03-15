@@ -4,14 +4,46 @@
 #include "config/cfg.h"
 
 static Window *main_window;
-static Layer *flag;
+static Layer *flag, *bat_indicator;
 static TextLayer *main_time, *time_bg;
 
 extern int *flag_colors[];
 extern int num_stripes[];
-extern int flag_num;
 
 ClaySettings settings;
+
+static int battery_level;
+
+static void battery_callback(BatteryChargeState state) {
+    battery_level = state.charge_percent;
+    layer_mark_dirty(bat_indicator);
+}
+
+static void battery_update_proc(Layer *layer, GContext *ctx) {
+    GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
+    int h = bounds.size.h;
+    int w = bounds.size.w;
+
+    int bar_w = (battery_level * 90) / 100;
+    int bar_h = 5;
+    if (settings.doBatBar == true) {
+        graphics_context_set_fill_color(ctx, settings.accColor);
+
+        if(settings.BottomShadow == true) {
+            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) + settings.spacing, h / 2 + 25 + settings.spacing, bar_w, bar_h), 0, GCornerNone);
+        } else {
+            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) + settings.spacing, h / 2 + 25 - settings.spacing, bar_w, bar_h), 0, GCornerNone);
+        }
+
+        graphics_context_set_fill_color(ctx, settings.mainColor);
+
+        if(settings.BottomShadow == true) {
+            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) - settings.spacing, h / 2 + 25 - settings.spacing, bar_w, bar_h), 0, GCornerNone);
+        } else {
+            graphics_fill_rect(ctx, GRect((w / 2 - bar_w / 2) - settings.spacing, h / 2 + 25 + settings.spacing, bar_w, bar_h), 0, GCornerNone);
+        }
+    }
+}
 
 void update_time() {
     time_t temp = time(NULL);
@@ -61,6 +93,8 @@ void update_stuff() {
     text_layer_set_font(main_time, settings.timeFant);
     text_layer_set_font(time_bg, settings.timeFant);
 
+    layer_mark_dirty(bat_indicator);
+
     update_flag();
     update_time();
 }
@@ -78,6 +112,7 @@ static void main_window_load(Window *window) {
         time_y_offset = 26;
     }
 
+    //flag
     flag = layer_create(bounds);
     layer_set_update_proc(flag, flag_update_proc);
     layer_add_child(window_layer, flag);
@@ -104,21 +139,27 @@ static void main_window_load(Window *window) {
     text_layer_set_font(time_bg, settings.timeFant);
     text_layer_set_text_alignment(time_bg, GTextAlignmentCenter);
 
+    //battery indicator
+    bat_indicator = layer_create(bounds);
+    layer_set_update_proc(bat_indicator, battery_update_proc);
+
     layer_add_child(window_layer, text_layer_get_layer(time_bg));
     layer_add_child(window_layer, text_layer_get_layer(main_time));
+    layer_add_child(window_layer, bat_indicator);
 }
 
 static void main_window_unload(Window *window) {
-    //layer_destroy(flag);
+    layer_destroy(flag);
+    layer_destroy(bat_indicator);
     text_layer_destroy(main_time);
     text_layer_destroy(time_bg);
-    
 }
 
 static void init() {
     main_window = window_create();
 
     tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+    battery_state_service_subscribe(battery_callback);
 
     init_msg();
     load_settings();
@@ -129,6 +170,7 @@ static void init() {
     });
 
     window_stack_push(main_window, true);
+    update_stuff();
 }
 
 static void deinit() {

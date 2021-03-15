@@ -6,12 +6,13 @@ extern ClaySettings settings;
 
 static void set_defaults() {
     settings.bgColor = GColorBlack;
-    settings.mainColor = GColorLightGray;
+    settings.mainColor = GColorWhite;
     settings.accColor = GColorBlack;
     settings.BottomShadow = true;
-    settings.flag_number = 2;
+    settings.flag_number = 1;
     settings.spacing = 2;
     settings.timeFant = fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS);
+    settings.doBatBar = true;
 }
 
 void load_settings() {
