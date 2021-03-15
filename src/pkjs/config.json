@@ -157,7 +157,7 @@
                 "type": "slider",
                 "messageKey": "SpacingKey",
                 "defaultValue": "2",
-                "label": "Spacing Between Main and Background Text",
+                "label": "Spacing Between Main and Background Items",
                 "description": "(Set to 0 for no drop shadow)",
                 "min": "0",
                 "max": "3",
