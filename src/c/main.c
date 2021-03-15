@@ -91,7 +91,7 @@ void update_stuff() {
     text_layer_set_font(main_time, settings.timeFant);
     text_layer_set_font(time_bg, settings.timeFant);
 
-    layer_mark_dirty(bat_indicator);
+    layer_set_hidden(bat_indicator, settings.doBatBar);
 
     update_flag();
     update_time();
@@ -140,6 +140,7 @@ static void main_window_load(Window *window) {
     //battery indicator
     bat_indicator = layer_create(bounds);
     layer_set_update_proc(bat_indicator, battery_update_proc);
+    layer_set_hidden(bat_indicator, settings.doBatBar);
 
     layer_add_child(window_layer, text_layer_get_layer(time_bg));
     layer_add_child(window_layer, text_layer_get_layer(main_time));
