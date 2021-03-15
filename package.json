@@ -27,7 +27,8 @@
       "SpacingKey",
       "BGColorKey",
       "MainColorKey",
-      "AccentColorKey"
+      "AccentColorKey",
+      "TimeFontKey"
     ],
     "resources": {
       "media": []

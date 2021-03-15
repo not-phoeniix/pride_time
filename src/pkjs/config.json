@@ -23,6 +23,7 @@
             {
                 "type": "color",
                 "messageKey": "BGColorKey",
+                "defaultValue": "0x000000",
                 "label": "Background Color"
             },
             {
@@ -34,7 +35,7 @@
             {
                 "type": "color",
                 "messageKey": "AccentColorKey",
-                "defaultValue": "0xAAAAAA",
+                "defaultValue": "0x000000",
                 "label": "Drop Shadow Text Color"
             }
         ]
@@ -120,6 +121,27 @@
                 ]
             },
             {
+                "type": "select",
+                "messageKey": "TimeFontKey",
+                "defaultValue": "RESOURCE_ID_LECO_42_NUMBERS",
+                "label": "Time Font",
+                "options": [
+                    {
+                        "label": "LECO",
+                        "value": "RESOURCE_ID_LECO_42_NUMBERS"
+                    },
+                    {
+                        "label": "Roboto",
+                        "value": "RESOURCE_ID_ROBOTO_BOLD_SUBSET_49"
+                    },
+                    {
+                        "label": "Bitham",
+                        "value": "RESOURCE_ID_BITHAM_42_BOLD"
+                    }
+                ]
+
+            },
+            {
                 "type": "toggle",
                 "messageKey": "BottomShadowKey",
                 "label": "Drop Shadow is Below Text",
@@ -129,7 +151,7 @@
                 "type": "slider",
                 "messageKey": "SpacingKey",
                 "defaultValue": "1",
-                "label": "Spacing Between Main Text and Drop Shadow",
+                "label": "Spacing Between Main and Background Text",
                 "description": "(Set to 0 for No Drop Shadow)",
                 "min": "0",
                 "max": "3",

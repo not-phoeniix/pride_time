@@ -6,7 +6,6 @@
 static Window *main_window;
 static Layer *flag;
 static TextLayer *main_time, *time_bg;
-static GFont fant;
 
 extern int *flag_colors[];
 extern int num_stripes[];
@@ -51,25 +50,33 @@ void update_flag() {
 }
 
 void update_stuff() {
-  layer_mark_dirty(text_layer_get_layer(main_time));
-  layer_mark_dirty(text_layer_get_layer(time_bg));
+    layer_mark_dirty(text_layer_get_layer(main_time));
+    layer_mark_dirty(text_layer_get_layer(time_bg));
 
-  window_set_background_color(main_window, settings.bgColor);
+    window_set_background_color(main_window, settings.bgColor);
 
-  text_layer_set_text_color(main_time, settings.mainColor);
-  text_layer_set_text_color(time_bg, settings.accColor);
+    text_layer_set_text_color(main_time, settings.mainColor);
+    text_layer_set_text_color(time_bg, settings.accColor);
 
-  update_flag();
-  update_time();
+    text_layer_set_font(main_time, settings.timeFant);
+    text_layer_set_font(time_bg, settings.timeFant);
+
+    update_flag();
+    update_time();
 }
 
 static void main_window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
 
-    fant = fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS);
-
     window_set_background_color(main_window, settings.bgColor);
+
+    int time_y_offset;
+    if (settings.timeFant == fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49)) {
+        time_y_offset = 31;
+    } else {
+        time_y_offset = 26;
+    }
 
     flag = layer_create(bounds);
     layer_set_update_proc(flag, flag_update_proc);
@@ -77,24 +84,24 @@ static void main_window_load(Window *window) {
 
     //main text
     if(settings.BottomShadow == true) {
-        main_time = text_layer_create(GRect(0 - settings.spacing, bounds.size.w / 2 - 16 - settings.spacing, bounds.size.w, 50));
+        main_time = text_layer_create(GRect(0 - settings.spacing, (bounds.size.h / 2 - time_y_offset) - settings.spacing, bounds.size.w, 50));
     } else {
-        main_time = text_layer_create(GRect(0 - settings.spacing, bounds.size.w / 2 - 16 + settings.spacing, bounds.size.w, 50));
+        main_time = text_layer_create(GRect(0 - settings.spacing, (bounds.size.h / 2 - time_y_offset) + settings.spacing, bounds.size.w, 50));
     }
     text_layer_set_background_color(main_time, GColorClear);
     text_layer_set_text_color(main_time, settings.mainColor);
-    text_layer_set_font(main_time, fant);
+    text_layer_set_font(main_time, settings.timeFant);
     text_layer_set_text_alignment(main_time, GTextAlignmentCenter);
- 
+
     //background drop shadow
     if(settings.BottomShadow == true) {
-        time_bg = text_layer_create(GRect(settings.spacing, bounds.size.w / 2 - 16 + settings.spacing, bounds.size.w, 50));
+        time_bg = text_layer_create(GRect(settings.spacing, (bounds.size.h / 2 - time_y_offset) + settings.spacing, bounds.size.w, 50));
     } else {
-        time_bg = text_layer_create(GRect(settings.spacing, bounds.size.w / 2 - 16 - settings.spacing, bounds.size.w, 50));
+        time_bg = text_layer_create(GRect(settings.spacing, (bounds.size.h / 2 - time_y_offset) - settings.spacing, bounds.size.w, 50));
     }
     text_layer_set_background_color(time_bg, GColorClear);
     text_layer_set_text_color(time_bg, settings.accColor);
-    text_layer_set_font(time_bg, fant);
+    text_layer_set_font(time_bg, settings.timeFant);
     text_layer_set_text_alignment(time_bg, GTextAlignmentCenter);
 
     layer_add_child(window_layer, text_layer_get_layer(time_bg));

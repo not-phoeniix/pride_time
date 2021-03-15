@@ -6,7 +6,6 @@
 extern ClaySettings settings;
 
 static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
-    //flag
     Tuple *flag_t = dict_find(iter, MESSAGE_KEY_FlagKey);
     if (flag_t) {
         settings.flag_number = atoi(flag_t->value->cstring);
@@ -21,12 +20,11 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
     if(spacing_t) {
         settings.spacing = spacing_t->value->int32;
     }
-  
+
     Tuple *bgColor_t = dict_find(iter, MESSAGE_KEY_BGColorKey);
     if(bgColor_t) {
         settings.bgColor = GColorFromHEX(bgColor_t->value->int32);
     }
-  
 
     Tuple *mainColor_t = dict_find(iter, MESSAGE_KEY_MainColorKey);
     if(mainColor_t) {
@@ -38,8 +36,12 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
         settings.accColor = GColorFromHEX(accColor_t->value->int32);
     }
 
+    Tuple *timeFont_t = dict_find(iter, MESSAGE_KEY_TimeFontKey);
+    if(timeFont_t) {
+        settings.timeFant = fonts_get_system_font(timeFont_t->value->cstring);
+    }
+
     save_settings();
-    
     update_stuff();
 }
 

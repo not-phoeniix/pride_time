@@ -8,6 +8,7 @@ typedef struct ClaySettings {
     GColor bgColor;
     GColor mainColor;
     GColor accColor;
+    GFont timeFant;
 } ClaySettings;
 
 void update_stuff();
