@@ -80,9 +80,6 @@ void update_flag() {
 }
 
 void update_stuff() {
-    layer_mark_dirty(text_layer_get_layer(main_time));
-    layer_mark_dirty(text_layer_get_layer(time_bg));
-
     window_set_background_color(main_window, settings.bgColor);
 
     text_layer_set_text_color(main_time, settings.mainColor);
@@ -92,9 +89,13 @@ void update_stuff() {
     text_layer_set_font(time_bg, settings.timeFant);
 
     layer_set_hidden(bat_indicator, settings.doBatBar);
+    layer_mark_dirty(bat_indicator);
 
     update_flag();
     update_time();
+
+    layer_mark_dirty(text_layer_get_layer(main_time));
+    layer_mark_dirty(text_layer_get_layer(time_bg));
 }
 
 static void main_window_load(Window *window) {
