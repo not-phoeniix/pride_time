@@ -29,7 +29,8 @@
       "MainColorKey",
       "AccentColorKey",
       "TimeFontKey",
-      "EnableBatteryKey"
+      "EnableBatteryKey",
+      "EnableBTBuzzKey"
     ],
     "resources": {
       "media": []

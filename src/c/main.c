@@ -14,6 +14,12 @@ ClaySettings settings;
 
 static int battery_level;
 
+static void bluetooth_callback(bool connected) {
+    if(settings.doBtBuzz == true && !connected) {
+        vibes_short_pulse();
+    }
+}
+
 static void battery_callback(BatteryChargeState state) {
     battery_level = state.charge_percent;
     layer_mark_dirty(bat_indicator);
@@ -160,6 +166,10 @@ static void init() {
 
     tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
     battery_state_service_subscribe(battery_callback);
+    
+    connection_service_subscribe((ConnectionHandlers) {
+        .pebble_app_connection_handler = bluetooth_callback
+    });
 
     init_msg();
     load_settings();
@@ -171,6 +181,7 @@ static void init() {
 
     window_stack_push(main_window, true);
     battery_callback(battery_state_service_peek());
+    bluetooth_callback(connection_service_peek_pebble_app_connection());
     update_stuff();
 }
 

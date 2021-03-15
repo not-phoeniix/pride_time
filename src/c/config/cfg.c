@@ -13,6 +13,7 @@ static void set_defaults() {
     settings.spacing = 2;
     settings.timeFant = fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS);
     settings.doBatBar = true;
+    settings.doBtBuzz = true;
 }
 
 void load_settings() {

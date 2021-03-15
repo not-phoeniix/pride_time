@@ -154,6 +154,12 @@
                 "label": "Enable Battery Bar"
             },
             {
+                "type": "toggle",
+                "messageKey": "EnableBTBuzzKey",
+                "defaultValue": "true",
+                "label": "Enable Vibe on Bluetooth Disconnect"
+            },
+            {
                 "type": "slider",
                 "messageKey": "SpacingKey",
                 "defaultValue": "2",

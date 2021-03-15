@@ -46,6 +46,11 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
         settings.doBatBar = bat_t->value->int32 == 0;
     }
 
+    Tuple *btbuzz_t = dict_find(iter, MESSAGE_KEY_EnableBTBuzzKey);
+    if(btbuzz_t) {
+        settings.doBtBuzz = btbuzz_t->value->int32 == 1;
+    }
+
     save_settings();
     update_stuff();
 }
