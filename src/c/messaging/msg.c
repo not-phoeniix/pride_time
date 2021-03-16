@@ -43,7 +43,7 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
 
     Tuple *bat_t = dict_find(iter, MESSAGE_KEY_EnableBatteryKey);
     if(bat_t) {
-        settings.hideBatBar = bat_t->value->int32 == 1;
+        settings.showBatBar = bat_t->value->int32 == 1;
     }
 
     Tuple *btbuzz_t = dict_find(iter, MESSAGE_KEY_EnableBTBuzzKey);
