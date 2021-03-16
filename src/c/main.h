@@ -9,8 +9,10 @@ typedef struct ClaySettings {
     GColor mainColor;
     GColor accColor;
     GFont timeFant;
-    bool doBatBar;
+    GFont dateFant;
+    bool hideBatBar;
     bool doBtBuzz;
+    bool doDate;
 } ClaySettings;
 
 void update_stuff();

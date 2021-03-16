@@ -43,12 +43,22 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
 
     Tuple *bat_t = dict_find(iter, MESSAGE_KEY_EnableBatteryKey);
     if(bat_t) {
-        settings.doBatBar = bat_t->value->int32 == 0;
+        settings.hideBatBar = bat_t->value->int32 == 1;
     }
 
     Tuple *btbuzz_t = dict_find(iter, MESSAGE_KEY_EnableBTBuzzKey);
     if(btbuzz_t) {
         settings.doBtBuzz = btbuzz_t->value->int32 == 1;
+    }
+
+    Tuple *date_t = dict_find(iter, MESSAGE_KEY_EnableDateKey);
+    if(date_t) {
+        settings.doDate = date_t->value->int32 == 1;
+    }
+
+    Tuple *datefont_t = dict_find(iter, MESSAGE_KEY_DateFontKey);
+    if(datefont_t) {
+        settings.dateFant = fonts_get_system_font(datefont_t->value->cstring);
     }
 
     save_settings();

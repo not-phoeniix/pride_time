@@ -10,10 +10,12 @@ static void set_defaults() {
     settings.accColor = GColorBlack;
     settings.BottomShadow = true;
     settings.flag_number = 1;
-    settings.spacing = 2;
+    settings.spacing = 1;
     settings.timeFant = fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS);
-    settings.doBatBar = true;
+    settings.hideBatBar = false;
     settings.doBtBuzz = true;
+    settings.doDate = true;
+    settings.dateFant = fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS);
 }
 
 void load_settings() {

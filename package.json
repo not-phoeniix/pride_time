@@ -30,7 +30,9 @@
       "AccentColorKey",
       "TimeFontKey",
       "EnableBatteryKey",
-      "EnableBTBuzzKey"
+      "EnableBTBuzzKey",
+      "EnableDateKey",
+      "DateFontKey"
     ],
     "resources": {
       "media": []

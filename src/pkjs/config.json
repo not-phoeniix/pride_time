@@ -142,6 +142,26 @@
 
             },
             {
+                "type": "select",
+                "messageKey": "DateFontKey",
+                "defaultValue": "RESOURCE_ID_GOTHIC_28_BOLD",
+                "label": "Date Font",
+                "options": [
+                    {
+                        "label": "Gothic",
+                        "value": "RESOURCE_ID_GOTHIC_24_BOLD"
+                    },
+                    {
+                        "label": "Roboto",
+                        "value": "RESOURCE_ID_ROBOTO_CONDENSED_21"
+                    },
+                    {
+                        "label": "LECO",
+                        "value": "RESOURCE_ID_LECO_20_BOLD_NUMBERS"
+                    }
+                ]
+            },
+            {
                 "type": "toggle",
                 "messageKey": "BottomShadowKey",
                 "label": "Drop Shadow is Below Text",
@@ -158,6 +178,12 @@
                 "messageKey": "EnableBTBuzzKey",
                 "defaultValue": "true",
                 "label": "Enable Vibe on Bluetooth Disconnect"
+            },
+            {
+                "type": "toggle",
+                "messageKey": "EnableDateKey",
+                "defaultValue": "true",
+                "label": "Show Date"
             },
             {
                 "type": "slider",
