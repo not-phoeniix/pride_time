@@ -32,7 +32,9 @@
       "EnableBatteryKey",
       "EnableBTBuzzKey",
       "EnableDateKey",
-      "DateFontKey"
+      "DateFontKey",
+      "DateSwitchKey",
+      "DateSeparatorKey"
     ],
     "resources": {
       "media": []

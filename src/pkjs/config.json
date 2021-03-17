@@ -146,26 +146,6 @@
 
             },
             {
-                "type": "select",
-                "messageKey": "DateFontKey",
-                "defaultValue": "RESOURCE_ID_GOTHIC_28_BOLD",
-                "label": "Date Font",
-                "options": [
-                    {
-                        "label": "Gothic",
-                        "value": "RESOURCE_ID_GOTHIC_24_BOLD"
-                    },
-                    {
-                        "label": "Roboto",
-                        "value": "RESOURCE_ID_ROBOTO_CONDENSED_21"
-                    },
-                    {
-                        "label": "LECO",
-                        "value": "RESOURCE_ID_LECO_20_BOLD_NUMBERS"
-                    }
-                ]
-            },
-            {
                 "type": "toggle",
                 "messageKey": "BottomShadowKey",
                 "label": "Drop Shadow is Below Text",
@@ -184,12 +164,6 @@
                 "label": "Enable Vibe on Bluetooth Disconnect"
             },
             {
-                "type": "toggle",
-                "messageKey": "EnableDateKey",
-                "defaultValue": "true",
-                "label": "Show Date"
-            },
-            {
                 "type": "slider",
                 "messageKey": "SpacingKey",
                 "defaultValue": "2",
@@ -198,6 +172,67 @@
                 "min": "0",
                 "max": "3",
                 "step": "1"
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "items": [
+            {
+                "type": "heading",
+                "defaultValue": "Date",
+                "size": "7"
+            },
+            {
+                "type": "toggle",
+                "messageKey": "EnableDateKey",
+                "defaultValue": "true",
+                "label": "Show Date"
+            },
+            {
+                "type": "select",
+                "messageKey": "DateFontKey",
+                "defaultValue": "RESOURCE_ID_LECO_20_BOLD_NUMBERS",
+                "label": "Date Font",
+                "options": [
+                    {
+                        "label": "Gothic",
+                        "value": "RESOURCE_ID_GOTHIC_24_BOLD"
+                    },
+                    {
+                        "label": "Roboto",
+                        "value": "RESOURCE_ID_ROBOTO_CONDENSED_21"
+                    },
+                    {
+                        "label": "LECO",
+                        "value": "RESOURCE_ID_LECO_20_BOLD_NUMBERS"
+                    }
+                ]
+            },
+            {
+                "type": "toggle",
+                "messageKey": "DateSwitchKey",
+                "label": "Switch Date (DD/MM)"
+            },
+            {
+                "type": "select",
+                "messageKey": "DateSeparatorKey",
+                "label": "Date Separator",
+                "defaultValue": "/",
+                "options": [
+                    {
+                        "label": "Slash (/)",
+                        "value": "/"
+                    },
+                    {
+                        "label": "Hyphen (-)",
+                        "value": "-"
+                    },
+                    {
+                        "label": "Dot (.)",
+                        "value": "."
+                    }
+                ]
             }
         ]
     },

@@ -61,6 +61,16 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
         settings.dateFant = fonts_get_system_font(datefont_t->value->cstring);
     }
 
+    Tuple *dateswitch_t = dict_find(iter, MESSAGE_KEY_DateSwitchKey);
+    if(dateswitch_t) {
+        settings.switchDate = dateswitch_t->value->int32 == 1;
+    }
+
+    Tuple *dateseparator_t = dict_find(iter, MESSAGE_KEY_DateSeparatorKey);
+    if(dateseparator_t) {
+        settings.dateSeparator = dateseparator_t->value->cstring[0];
+    }
+
     save_settings();
     update_stuff();
 }

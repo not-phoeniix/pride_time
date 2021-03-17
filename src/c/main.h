@@ -13,6 +13,8 @@ typedef struct ClaySettings {
     bool showBatBar;
     bool doBtBuzz;
     bool doDate;
+    bool switchDate;
+    char dateSeparator;
 } ClaySettings;
 
 void update_stuff();

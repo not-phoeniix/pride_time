@@ -57,8 +57,20 @@ void update_time() {
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
 
+    static char m_buffer[3];
+    static char d_buffer[3];
+
     strftime(time_char, sizeof(time_char), clock_is_24h_style() ? "%H:%M" : "%I:%M", tick_time);
-    strftime(date_char, sizeof(date_char), "%m-%d", tick_time);
+    strftime(m_buffer, sizeof(m_buffer), "%m", tick_time);
+    strftime(d_buffer, sizeof(d_buffer), "%d", tick_time);
+
+    if(settings.switchDate) {
+        snprintf(date_char, sizeof(date_char), "%s%c%s", d_buffer, settings.dateSeparator, m_buffer);
+    } else {
+        snprintf(date_char, sizeof(date_char), "%s%c%s", m_buffer, settings.dateSeparator, d_buffer);
+    }
+
+    APP_LOG(APP_LOG_LEVEL_INFO, "%s", date_char);
 
     layer_mark_dirty(time_layer);
     layer_mark_dirty(date_layer);
@@ -178,7 +190,7 @@ void update_stuff() {
     layer_set_hidden(date_layer, !settings.doDate);
     
     if(settings.doDate == true) {
-        date_bool_offset = 20;
+        date_bool_offset = 15;
         if(settings.showBatBar == false) {
             no_bat_offset = 8;
         } else {
@@ -199,7 +211,7 @@ static void main_window_load(Window *window) {
     window_set_background_color(main_window, settings.bgColor);
 
     if(settings.doDate == true) {
-        date_bool_offset = 20;
+        date_bool_offset = 15;
         if(settings.showBatBar == false) {
             no_bat_offset = 8;
         } else {
