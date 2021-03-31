@@ -19,3 +19,4 @@ typedef struct ClaySettings {
 } ClaySettings;
 
 void update_stuff();
+void formatting();
