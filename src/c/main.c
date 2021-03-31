@@ -1,10 +1,13 @@
 #include <pebble.h>
+#include <pebble-effect-layer/pebble-effect-layer.h>
 #include "main.h"
 #include "messaging/msg.h"
 #include "config/cfg.h"
 
 static Window *main_window;
 static Layer *flag, *bat_indicator, *time_layer, *date_layer;
+static EffectLayer *effect_layer;
+static EffectMask *bgMask, *textMask;
 
 static char time_char[] = "00:00";
 static char date_char[] = "MM-DD";
@@ -15,8 +18,10 @@ extern int num_stripes[];
 ClaySettings settings;
 
 static int battery_level;
-int date_bool_offset;
-int no_bat_offset;
+static int date_bool_offset;
+static int no_bat_offset;
+static float flag_stripe_scale;
+static int flag_stripe_offset;
 
 static void bluetooth_callback(bool connected) {
     if(settings.doBtBuzz == true && !connected) {
@@ -53,6 +58,31 @@ static void battery_update_proc(Layer *layer, GContext *ctx) {
     }
 }
 
+static void formatting() {
+
+    //text formatting n stuff
+    if(settings.doDate == true) {
+        date_bool_offset = 15;
+        if(settings.showBatBar == false) {
+            no_bat_offset = 8;
+        } else {
+            no_bat_offset = 0;
+        }
+    } else {
+        date_bool_offset = 0;
+        no_bat_offset = 0;
+    }
+
+    //flag formatting
+    if(settings.toggleTextFlagMask) {
+        flag_stripe_scale = 0.6;
+        flag_stripe_offset = 20;
+    } else {
+        flag_stripe_offset = 0;
+        flag_stripe_scale = 1;
+    }
+}
+
 void update_time() {
     time_t temp = time(NULL);
     struct tm *tick_time = localtime(&temp);
@@ -80,13 +110,14 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
 }
 
-static void draw_flag(int segments, int colors[], GContext *ctx) {
+static void draw_flag(int segments, int colors[], float sy, int y, GContext *ctx) {
     GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
+
     int h = bounds.size.h / segments + (bounds.size.h % segments != 0);
     int w = bounds.size.w;
 
     for (int i = 0; i < segments; i++) {
-        GRect flag_stripe = GRect(0, h * i, w, h);
+        GRect flag_stripe = GRect(0, h * i * sy + y, w, h * sy);
 
         graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
         graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
@@ -94,7 +125,7 @@ static void draw_flag(int segments, int colors[], GContext *ctx) {
 }
 
 static void flag_update_proc(Layer *layer, GContext *ctx) {
-    draw_flag(num_stripes[settings.flag_number], flag_colors[settings.flag_number], ctx);
+    draw_flag(num_stripes[settings.flag_number], flag_colors[settings.flag_number], flag_stripe_scale, flag_stripe_offset, ctx);
 }
 
 void update_flag() {
@@ -111,6 +142,8 @@ static void draw_time(GContext *ctx) {
     } else {
         time_y_offset = 26 + date_bool_offset - no_bat_offset;
     }
+
+    formatting();
 
     //time bg
     graphics_context_set_text_color(ctx, settings.accColor);
@@ -170,6 +203,10 @@ static void draw_date(GContext *ctx) {
     //layer_set_hidden(text_layer_get_layer(date_bg), !settings.doDate);
 }
 
+static void draw_bg_mask(GContext *ctx) {
+
+}
+
 static void time_draw_update_proc(Layer *layer, GContext *ctx) {
     draw_time(ctx);
 }
@@ -178,30 +215,31 @@ static void date_draw_update_proc(Layer *layer, GContext *ctx) {
     draw_date(ctx);
 }
 
+static void bg_mask_shape_update_proc(Layer *layer, GContext *ctx) {
+
+}
+
 void update_stuff() {
     window_set_background_color(main_window, settings.bgColor);
 
-    layer_set_hidden(bat_indicator, !settings.showBatBar);
+    formatting();
+
+    if(settings.toggleTextFlagMask) {
+        layer_set_hidden(bat_indicator, true);
+        layer_set_hidden(date_layer, true);
+        layer_set_hidden(time_layer, true);
+    } else {
+        layer_set_hidden(bat_indicator, !settings.showBatBar);
+        layer_set_hidden(date_layer, !settings.doDate);
+        layer_set_hidden(time_layer, false);
+    }
+
     layer_mark_dirty(bat_indicator);
+    layer_mark_dirty(date_layer);
+    layer_mark_dirty(time_layer);
 
     update_flag();
     update_time();
-
-    layer_set_hidden(date_layer, !settings.doDate);
-    
-    if(settings.doDate == true) {
-        date_bool_offset = 15;
-        if(settings.showBatBar == false) {
-            no_bat_offset = 8;
-        } else {
-            no_bat_offset = 0;
-        }
-    } else {
-        date_bool_offset = 0;
-        no_bat_offset = 0;
-    }
-    layer_mark_dirty(date_layer);
-    layer_mark_dirty(time_layer);
 }
 
 static void main_window_load(Window *window) {
@@ -210,17 +248,7 @@ static void main_window_load(Window *window) {
 
     window_set_background_color(main_window, settings.bgColor);
 
-    if(settings.doDate == true) {
-        date_bool_offset = 15;
-        if(settings.showBatBar == false) {
-            no_bat_offset = 8;
-        } else {
-            no_bat_offset = 0;
-        }
-    } else {
-        date_bool_offset = 0;
-        no_bat_offset = 0;
-    }
+    formatting();
 
     //flag
     flag = layer_create(bounds);

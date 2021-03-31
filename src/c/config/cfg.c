@@ -17,6 +17,7 @@ static void set_defaults() {
     settings.doDate = true;
     settings.dateFant = fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS);
     settings.dateSeparator = '/';
+    settings.toggleTextFlagMask = true;
 }
 
 void load_settings() {

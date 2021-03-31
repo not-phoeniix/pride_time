@@ -7,7 +7,8 @@
   ],
   "private": true,
   "dependencies": {
-    "pebble-clay": "^1.0.4"
+    "pebble-clay": "^1.0.4",
+    "pebble-effect-layer": "^1.1.4"
   },
   "pebble": {
     "displayName": "Pride Time",
@@ -34,7 +35,8 @@
       "EnableDateKey",
       "DateFontKey",
       "DateSwitchKey",
-      "DateSeparatorKey"
+      "DateSeparatorKey",
+      "flagFillTextKey"
     ],
     "resources": {
       "media": []

@@ -49,6 +49,12 @@
                 "size": "7"
             },
             {
+                "type": "toggle",
+                "defaultValue": "false",
+                "label": "Make Text Filled With Flag",
+                "messageKey": "flagFillTextKey"
+            },
+            {
                 "type": "select",
                 "messageKey": "FlagKey",
                 "defaultValue": "1",
