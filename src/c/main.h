@@ -15,7 +15,7 @@ typedef struct ClaySettings {
     bool doDate;
     bool switchDate;
     char dateSeparator;
-    bool toggleTextFlagMask;
+    int rotFlag;
 } ClaySettings;
 
 void update_stuff();

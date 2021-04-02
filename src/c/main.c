@@ -7,16 +7,11 @@
 Window *main_window;
 static Layer *flag, *bat_indicator, *time_layer, *date_layer;
 
-//extern char time_char[];
-//extern char date_char[];
-
 ClaySettings settings;
 
 int battery_level;
 int date_bool_offset;
 int no_bat_offset;
-float flag_stripe_scale;
-int flag_stripe_offset;
 
 static void bluetooth_callback(bool connected) {
     if(settings.doBtBuzz == true && !connected) {
@@ -31,6 +26,7 @@ static void battery_callback(BatteryChargeState state) {
 
 void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
+    layer_mark_dirty(time_layer);
 }
 
 void formatting() {
@@ -47,30 +43,6 @@ void formatting() {
         date_bool_offset = 0;
         no_bat_offset = 0;
     }
-
-    //flag formatting
-    if(settings.toggleTextFlagMask) {
-        if(settings.doDate) { // no bat bar, date
-            if(!settings.showBatBar) {
-                flag_stripe_scale = 0.36;
-                flag_stripe_offset = 60;
-            } else { // bat bar, date
-                flag_stripe_scale = 0.47;
-                flag_stripe_offset = 50;
-            }
-        } else {
-            if(!settings.showBatBar) { // no bat bar, no date
-                flag_stripe_scale = 0.22;
-                flag_stripe_offset = 67;
-            } else { // bat bar, no date
-                flag_stripe_scale = 0.33;
-                flag_stripe_offset = 66; 
-            }
-        }
-    } else {
-        flag_stripe_offset = 0;
-        flag_stripe_scale = 1;
-    }
 }
 
 void update_stuff() {
@@ -78,16 +50,9 @@ void update_stuff() {
 
     formatting();
 
-    if(settings.toggleTextFlagMask) {
-        layer_set_hidden(bat_indicator, !settings.showBatBar);
-        layer_set_hidden(date_layer, !settings.doDate);
-        layer_set_hidden(time_layer, false);
-    } else {
-        layer_set_hidden(bat_indicator, !settings.showBatBar);
-        layer_set_hidden(date_layer, !settings.doDate);
-        layer_set_hidden(time_layer, false);
-    }
-
+    layer_set_hidden(bat_indicator, !settings.showBatBar);
+    layer_set_hidden(date_layer, !settings.doDate);
+    
     update_time();
 
     layer_mark_dirty(bat_indicator);

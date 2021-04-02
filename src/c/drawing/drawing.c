@@ -12,23 +12,53 @@ extern int num_stripes[];
 extern int battery_level;
 extern int date_bool_offset;
 extern int no_bat_offset;
-extern float flag_stripe_scale;
-extern int flag_stripe_offset;
 
 char time_char[] = "00:00";
 char date_char[] = "MM/DD";
 
-static void draw_flag(int segments, int colors[], float sy, int y, GContext *ctx) {
+static void draw_flag(int segments, int colors[], GContext *ctx) {
     GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
 
-    int h = bounds.size.h / segments + (bounds.size.h % segments != 0);
-    int w = bounds.size.w;
+    if(settings.rotFlag == 3) {
+        int h = bounds.size.h;
+        int w = bounds.size.w / segments + (bounds.size.w % segments != 0);
 
-    for (int i = 0; i < segments; i++) {
-        GRect flag_stripe = GRect(0, h * i * sy + y, w, h * sy);
+        for (int i = 0; i < segments; i++) {
+            GRect flag_stripe = GRect(w * i, 0, w, h);
 
-        graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
-        graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
+            graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
+            graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
+        }
+    } else if(settings.rotFlag == 2) {
+        int h = -1 * bounds.size.h / segments - (-1 * bounds.size.h % segments != 0);
+        int w = bounds.size.w;
+
+        for (int i = 0; i < segments; i++) {
+            GRect flag_stripe = GRect(0, bounds.size.h + (h * i), w, h);
+
+            graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
+            graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
+        }
+    } else if(settings.rotFlag == 1) {
+        int h = bounds.size.h;
+        int w = -1 * bounds.size.w / segments + (-1 * bounds.size.w % segments != 0);
+
+        for (int i = 0; i < segments; i++) {
+            GRect flag_stripe = GRect(bounds.size.w + (w * i), 0, w, h);
+
+            graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
+            graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
+        }
+    } else {
+        int h = bounds.size.h / segments + (bounds.size.h % segments != 0);
+        int w = bounds.size.w;
+
+        for (int i = 0; i < segments; i++) {
+            GRect flag_stripe = GRect(0, h * i, w, h);
+
+            graphics_context_set_fill_color(ctx, GColorFromHEX(colors[i]));
+            graphics_fill_rect(ctx, flag_stripe, 0, GCornerNone);
+        }
     }
 }
 
@@ -99,9 +129,6 @@ static void draw_date(GContext *ctx) {
     } else {
         graphics_draw_text(ctx, date_char, settings.dateFant, GRect(0 - 0.5 * settings.spacing, (bounds.size.h / 2 + date_y_offset) + 0.5 * settings.spacing, bounds.size.w, 50), GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, 0);
     }
-
-    //layer_set_hidden(text_layer_get_layer(main_date), !settings.doDate);
-    //layer_set_hidden(text_layer_get_layer(date_bg), !settings.doDate);
 }
 
 static void draw_bat_bar(GContext *ctx) {
@@ -129,7 +156,7 @@ static void draw_bat_bar(GContext *ctx) {
 }
 
 void flag_update_proc(Layer *layer, GContext *ctx) {
-    draw_flag(num_stripes[settings.flag_number], flag_colors[settings.flag_number], flag_stripe_scale, flag_stripe_offset, ctx);
+    draw_flag(num_stripes[settings.flag_number], flag_colors[settings.flag_number], ctx);
 }
 
 void time_draw_update_proc(Layer *layer, GContext *ctx) {

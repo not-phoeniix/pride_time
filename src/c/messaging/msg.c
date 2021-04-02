@@ -71,9 +71,9 @@ static void inbox_recieved_handler(DictionaryIterator *iter, void *ctx) {
         settings.dateSeparator = dateseparator_t->value->cstring[0];
     }
 
-    Tuple *flagtextfill_t = dict_find(iter, MESSAGE_KEY_flagFillTextKey);
-    if(flagtextfill_t) {
-        settings.toggleTextFlagMask = flagtextfill_t->value->int32 == 1;
+    Tuple *rotflag_t = dict_find(iter, MESSAGE_KEY_RotateFlagKey);
+    if(rotflag_t) {
+        settings.rotFlag = atoi(rotflag_t->value->cstring);
     }
 
     save_settings();

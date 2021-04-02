@@ -36,10 +36,17 @@
       "DateFontKey",
       "DateSwitchKey",
       "DateSeparatorKey",
-      "flagFillTextKey"
+      "RotateFlagKey"
     ],
     "resources": {
-      "media": []
+      "media": [
+        {
+          "menuIcon": "true",
+          "type": "png",
+          "name": "MENU_ICON",
+          "file": "pride_time_ico.png"
+        }
+      ]
     },
     "capabilities": [
       "configurable"
