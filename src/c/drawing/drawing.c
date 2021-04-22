@@ -17,7 +17,7 @@ char time_char[] = "00:00";
 char date_char[] = "MM/DD";
 
 static void draw_flag(int segments, int colors[], GContext *ctx) {
-    GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
+    GRect bounds = layer_get_unobstructed_bounds(window_get_root_layer(main_window));
 
     if(settings.rotFlag == 3) {
         int h = bounds.size.h;
@@ -41,7 +41,7 @@ static void draw_flag(int segments, int colors[], GContext *ctx) {
         }
     } else if(settings.rotFlag == 1) {
         int h = bounds.size.h;
-        int w = -1 * bounds.size.w / segments + (-1 * bounds.size.w % segments != 0);
+        int w = -1 * bounds.size.w / segments - (bounds.size.w % segments != 0);
 
         for (int i = 0; i < segments; i++) {
             GRect flag_stripe = GRect(bounds.size.w + (w * i), 0, w, h);
@@ -63,7 +63,7 @@ static void draw_flag(int segments, int colors[], GContext *ctx) {
 }
 
 static void draw_time(GContext *ctx) {
-    GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
+    GRect bounds = layer_get_unobstructed_bounds(window_get_root_layer(main_window));
 
     //y offset for date formatting
     int time_y_offset;
@@ -94,7 +94,7 @@ static void draw_time(GContext *ctx) {
 }
 
 static void draw_date(GContext *ctx) {
-    GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
+    GRect bounds = layer_get_unobstructed_bounds(window_get_root_layer(main_window));
     
     //y offsets for date formatting
     int date_y_offset;
@@ -132,7 +132,7 @@ static void draw_date(GContext *ctx) {
 }
 
 static void draw_bat_bar(GContext *ctx) {
-    GRect bounds = layer_get_bounds(window_get_root_layer(main_window));
+    GRect bounds = layer_get_unobstructed_bounds(window_get_root_layer(main_window));
     int h = bounds.size.h;
     int w = bounds.size.w;
 
